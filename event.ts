@@ -15,13 +15,15 @@ class EventEmitter {
       unsubscribe: () => {
         this.events.set(
           eventName,
-          this.events.get(eventName).filter((cb: any) => cb !== callback)
+          this.events.get(eventName).filter((cb: Callback) => cb !== callback)
         );
       },
     };
   }
 
   emit(eventName: string, args: any[] = []): any[] {
-    return (this.events.get(eventName) ?? []).map((cb: any) => cb(...args));
+    return (this.events.get(eventName) ?? []).map((cb: Callback) =>
+      cb(...args)
+    );
   }
 }
